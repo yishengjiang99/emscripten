@@ -814,7 +814,6 @@ class libc(AsanInstrumentedLibrary, MuslInternalLibrary, MTLibrary):
 
 class libprintf_long_double(libc):
   name = 'libprintf_long_double'
-
   cflags = ['-DEMSCRIPTEN_PRINTF_LONG_DOUBLE']
 
   def get_files(self):
@@ -823,7 +822,7 @@ class libprintf_long_double(libc):
         filenames=['vfprintf.c'])
 
   def can_build(self):
-    return super(libprintf_long_double, self).can_build() and shared.Settings.WASM_BACKEND
+    return super(libprintf_long_double, self).can_build() and shared.Settings.WASM_BACKEND and shared.Settings.PRINTF_LONG_DOUBLE
 
 
 class libsockets(MuslInternalLibrary, MTLibrary):
@@ -835,6 +834,9 @@ class libsockets(MuslInternalLibrary, MTLibrary):
     network_dir = shared.path_from_root('system', 'lib', 'libc', 'musl', 'src', 'network')
     return [os.path.join(network_dir, x) for x in LIBC_SOCKETS]
 
+  def can_build(self):
+    return super(libsockets, self).can_build() and not shared.Settings.PROXY_POSIX_SOCKETS
+
 
 class libsockets_proxy(MuslInternalLibrary, MTLibrary):
   name = 'libsockets_proxy'
@@ -844,6 +846,9 @@ class libsockets_proxy(MuslInternalLibrary, MTLibrary):
   def get_files(self):
     return [shared.path_from_root('system', 'lib', 'websocket', 'websocket_to_posix_socket.cpp'),
             shared.path_from_root('system', 'lib', 'libc', 'musl', 'src', 'network', 'inet_addr.c')]
+
+  def can_build(self):
+    return super(libsockets_proxy, self).can_build() and shared.Settings.PROXY_POSIX_SOCKETS
 
 
 class libc_wasm(MuslInternalLibrary):
@@ -1381,6 +1386,7 @@ class libasan_rt_wasm(SanitizerLibrary):
 
 class libasan_js(Library):
   name = 'libasan_js'
+  never_force = True
 
   cflags = ['-fsanitize=address']
 
@@ -1470,7 +1476,7 @@ class libstandalonewasm(MuslInternalLibrary):
     return base_files + time_files + exit_files + conf_files
 
   def can_build(self):
-    return super(libstandalonewasm, self).can_build() and shared.Settings.WASM_BACKEND
+    return super(libstandalonewasm, self).can_build() and shared.Settings.WASM_BACKEND and shared.Settings.STANDALONE_WASM
 
 
 class libjsmath(Library):
@@ -1478,6 +1484,9 @@ class libjsmath(Library):
   cflags = ['-Os']
   src_dir = ['system', 'lib']
   src_files = ['jsmath.c']
+
+  def can_build(self):
+    return super(libjsmath, self).can_build() and shared.Settings.JS_MATH
 
 
 # If main() is not in EXPORTED_FUNCTIONS, it may be dce'd out. This can be

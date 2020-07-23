@@ -4719,7 +4719,7 @@ main()
   @parameterized({
     'none': [{'EMCC_FORCE_STDLIBS': None}, False],
     # forced libs is ok, they were there anyhow
-    'normal': [{'EMCC_FORCE_STDLIBS': 'libc,libc++abi,libc++'}, False],
+    'normal': [{'EMCC_FORCE_STDLIBS': 'libc,libc++abi,libc++,libpthread,libmalloc'}, False],
     # partial list, but ok since we grab them as needed
     'parial': [{'EMCC_FORCE_STDLIBS': 'libc++'}, False],
     # fail! not enough stdlibs
