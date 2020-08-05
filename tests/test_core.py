@@ -4402,10 +4402,7 @@ res64 - external 64\n''', header='''
     # one module uses libcxx, need to force its inclusion when it isn't the main
 
     if assertions is not None:
-      if assertions:
-        self.set_setting('ASSERTIONS', 1)
-      else:
-        self.set_setting('ASSERTIONS', 0)
+      self.set_setting('ASSERTIONS', int(assertions))
 
     passed = True
     try:
