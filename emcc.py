@@ -1633,8 +1633,6 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
     if shared.Settings.WASM:
       if shared.Settings.INITIAL_MEMORY % 65536 != 0:
         exit_with_error('For wasm, INITIAL_MEMORY must be a multiple of 64KB, was ' + str(shared.Settings.INITIAL_MEMORY))
-      if shared.Settings.INITIAL_MEMORY >= 2 * 1024 * 1024 * 1024:
-        exit_with_error('INITIAL_MEMORY must be less than 2GB due to current spec limitations')
     else:
       if shared.Settings.INITIAL_MEMORY < 16 * 1024 * 1024:
         exit_with_error('INITIAL_MEMORY must be at least 16MB, was ' + str(shared.Settings.INITIAL_MEMORY))
