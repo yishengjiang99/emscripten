@@ -4,11 +4,16 @@ struct shmid_ds {
 	struct ipc_perm shm_perm;
 	size_t shm_segsz;
 	time_t shm_atime;
+<<<<<<< HEAD
 	int __unused1;
 	time_t shm_dtime;
 	int __unused2;
 	time_t shm_ctime;
 	int __unused3;
+=======
+	time_t shm_dtime;
+	time_t shm_ctime;
+>>>>>>> e6c3efafa (Update musl to v1.2.2)
 	pid_t shm_cpid;
 	pid_t shm_lpid;
 	unsigned long shm_nattch;
@@ -25,4 +30,7 @@ struct shm_info {
 	unsigned long shm_tot, shm_rss, shm_swp;
 	unsigned long __swap_attempts, __swap_successes;
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> e6c3efafa (Update musl to v1.2.2)

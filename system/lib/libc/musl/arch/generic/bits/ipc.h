@@ -9,5 +9,8 @@ struct ipc_perm {
 	long __pad1;
 	long __pad2;
 };
+<<<<<<< HEAD
 
 #define IPC_64 0x100
+=======
+>>>>>>> e6c3efafa (Update musl to v1.2.2)

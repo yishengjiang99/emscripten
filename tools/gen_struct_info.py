@@ -197,6 +197,7 @@ def inspect_headers(headers, cpp_opts):
   for header in headers:
     code.append('#include "' + header['name'] + '"')
 
+  #code.append('#undef hidden')
   code.append('int main() {')
   c_descent('structs', code)
   for header in headers:

@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:system/lib/libc/musl/arch/generic/bits/socket.h
 struct msghdr {
 	void *msg_name;
 	socklen_t msg_namelen;
@@ -13,3 +14,5 @@ struct cmsghdr {
 	int cmsg_level;
 	int cmsg_type;
 };
+========
+>>>>>>>> e6c3efafa (Update musl to v1.2.2):system/lib/libc/musl/arch/emscripten/bits/socket.h
