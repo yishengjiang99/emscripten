@@ -703,7 +703,8 @@ class libc(AsanInstrumentedLibrary, MuslInternalLibrary, MTLibrary):
         'getgrouplist.c', 'initgroups.c', 'wordexp.c', 'timer_create.c',
         'faccessat.c', 'getentropy.c',
         # 'process' exclusion
-        'fork.c', 'vfork.c', 'posix_spawn.c', 'execve.c', 'waitid.c', 'system.c'
+        'fork.c', 'vfork.c', 'posix_spawn.c', 'execve.c', 'waitid.c', 'system.c',
+        '_Fork.c',
     ]
 
     ignore += LIBC_SOCKETS

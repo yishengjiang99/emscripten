@@ -1,6 +1,5 @@
 #include <time.h>
 #include "syscall.h"
-
 #if __EMSCRIPTEN__
 #include <errno.h>
 #include <emscripten/threading.h>

@@ -1,7 +1,7 @@
 #ifndef SYS_MMAN_H
 #define SYS_MMAN_H
 
-#include "../../../../../../include/libc/sys/mman.h"
+#include "../../../include/sys/mman.h"
 
 hidden void __vm_wait(void);
 hidden void __vm_lock(void);

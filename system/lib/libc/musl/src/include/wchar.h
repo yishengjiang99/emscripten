@@ -3,7 +3,7 @@
 
 #define __DEFINED_struct__IO_FILE
 
-#include "../../../../../include/libc/wchar.h"
+#include "../../include/wchar.h"
 
 #endif
 

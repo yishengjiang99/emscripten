@@ -12,10 +12,10 @@
 #include "syscall.h"
 #include "pthread_impl.h"
 
+#ifndef __EMSCRIPTEN__
 #define IS32BIT(x) !((x)+0x80000000ULL>>32)
 #define CLAMP(x) (int)(IS32BIT(x) ? (x) : 0x7fffffffU+((0ULL+(x))>>63))
 
-#ifndef __EMSCRIPTEN__
 static int __futex4_cp(volatile void *addr, int op, int val, const struct timespec *to)
 {
 	int r;

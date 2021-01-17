@@ -1,7 +1,7 @@
 #ifndef ERRNO_H
 #define ERRNO_H
 
-#include "../../../../../include/libc/errno.h"
+#include "../../include/errno.h"
 
 #ifdef __GNUC__
 __attribute__((const))

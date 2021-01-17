@@ -8,6 +8,8 @@
 #include "syscall.h"
 #include "kstat.h"
 
+/* XXX Emscripten: we ensure kstat == stat so we can simply make the syscall
+ * without the extra copy */
 #ifndef __EMSCRIPTEN__
 struct statx {
 	uint32_t stx_mask;
@@ -69,7 +71,6 @@ static int fstatat_statx(int fd, const char *restrict path, struct stat *restric
 	};
 	return 0;
 }
-#endif
 
 static int fstatat_kstat(int fd, const char *restrict path, struct stat *restrict st, int flag)
 {
@@ -103,9 +104,6 @@ static int fstatat_kstat(int fd, const char *restrict path, struct stat *restric
 
 	if (ret) return ret;
 
-#ifdef __EMSCRIPTEN__
-	*st = kst;
-#else
 	*st = (struct stat){
 		.st_dev = kst.st_dev,
 		.st_ino = kst.st_ino,
@@ -132,21 +130,26 @@ static int fstatat_kstat(int fd, const char *restrict path, struct stat *restric
 		.__st_ctim32.tv_nsec = kst.st_ctime_nsec,
 #endif
 	};
-#endif
 
 	return 0;
 }
+#endif
 
 int fstatat(int fd, const char *restrict path, struct stat *restrict st, int flag)
 {
 	int ret;
-#ifndef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
+	if ((fd == AT_FDCWD || *path=='/') && !flag)
+		ret = __syscall(SYS_stat, path, st);
+	else
+		ret = __syscall(SYS_fstatat, fd, path, st, flag);
+#else
 	if (sizeof((struct kstat){0}.st_atime_sec) < sizeof(time_t)) {
 		ret = fstatat_statx(fd, path, st, flag);
 		if (ret!=-ENOSYS) return __syscall_ret(ret);
 	}
-#endif
 	ret = fstatat_kstat(fd, path, st, flag);
+#endif
 	return __syscall_ret(ret);
 }
 

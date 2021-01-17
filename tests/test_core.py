@@ -3018,7 +3018,7 @@ Var: 42
     export_count = get_data_export_count('test_dlfcn_self.wasm')
     # ensure there aren't too many globals; we don't want unnamed_addr
     self.assertGreater(export_count, 20)
-    self.assertLess(export_count, 58)
+    self.assertLess(export_count, 65)
 
   @needs_dlfcn
   def test_dlfcn_unique_sig(self):
@@ -4949,6 +4949,9 @@ main( int argv, char ** argc ) {
   def test_stat(self):
     self.do_runf(path_from_root('tests', 'stat', 'test_stat.c'), 'success')
     self.verify_in_strict_mode('test_stat.js')
+
+  def test_fstatat(self):
+    self.do_runf(path_from_root('tests', 'stat', 'test_fstatat.c'), 'success')
 
   def test_stat_chmod(self):
     self.do_runf(path_from_root('tests', 'stat', 'test_chmod.c'), 'success')

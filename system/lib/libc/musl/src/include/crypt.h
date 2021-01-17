@@ -1,7 +1,7 @@
 #ifndef CRYPT_H
 #define CRYPT_H
 
-#include "../../../../../include/libc/crypt.h"
+#include "../../include/crypt.h"
 
 #include <features.h>
 

@@ -3,7 +3,7 @@
 
 #define __DEFINED_struct__IO_FILE
 
-#include "../../../../../include/libc/stdio.h"
+#include "../../include/stdio.h"
 
 #undef stdin
 #undef stdout

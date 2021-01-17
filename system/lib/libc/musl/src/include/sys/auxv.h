@@ -1,7 +1,7 @@
 #ifndef SYS_AUXV_H
 #define SYS_AUXV_H
 
-#include "../../../../../../include/libc/sys/auxv.h"
+#include "../../../include/sys/auxv.h"
 
 #include <features.h>
 

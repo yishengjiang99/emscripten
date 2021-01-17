@@ -1,6 +1,6 @@
 #include <sys/uio.h>
 #include "syscall.h"
-#ifdef __EMSCRIPTEN__
+#if __EMSCRIPTEN__
 #include <wasi/api.h>
 #endif
 

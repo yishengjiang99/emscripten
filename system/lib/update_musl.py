@@ -32,7 +32,7 @@ exclude_dirs = (
   # Arch-specific code we don't use
   'arm', 'x32', 'sh', 'i386', 'x86_64', 'aarch64', 'riscv64',
   's390x', 'mips', 'mips64', 'mipsn32', 'powerpc', 'powerpc64',
-  'm68k', 'microblaze', 'or1k', 'generic')
+  'm68k', 'microblaze', 'or1k')
 
 
 musl_dir = os.path.abspath(sys.argv[1])
@@ -54,6 +54,11 @@ def main():
 
   # Copy new version into place
   shutil.copytree(musl_dir, local_src, ignore=ignore)
+
+  # Create versoin.h
+  version = open(os.path.join(local_src, 'VERSION')).read().strip()
+  with open(os.path.join(local_src, 'src', 'internal', 'version.h'), 'w') as f:
+    f.write('#define VERSION "%s"\n' % version)
 
 
 if __name__ == '__main__':

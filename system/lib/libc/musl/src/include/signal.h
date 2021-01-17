@@ -1,7 +1,7 @@
 #ifndef SIGNAL_H
 #define SIGNAL_H
 
-#include "../../../../../include/libc/signal.h"
+#include "../../include/signal.h"
 
 hidden int __sigaction(int, const struct sigaction *, struct sigaction *);
 

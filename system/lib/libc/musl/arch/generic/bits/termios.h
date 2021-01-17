@@ -51,10 +51,7 @@ struct termios {
 #define ONLRET 0000040
 #define OFILL  0000100
 #define OFDEL  0000200
-<<<<<<< HEAD
-=======
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE) || defined(_XOPEN_SOURCE)
->>>>>>> e6c3efafa (Update musl to v1.2.2)
 #define NLDLY  0000400
 #define NL0    0000000
 #define NL1    0000400
@@ -74,10 +71,7 @@ struct termios {
 #define FFDLY  0100000
 #define FF0    0000000
 #define FF1    0100000
-<<<<<<< HEAD
-=======
 #endif
->>>>>>> e6c3efafa (Update musl to v1.2.2)
 
 #define VTDLY  0040000
 #define VT0    0000000
