@@ -28,6 +28,7 @@ mergeInto(LibraryManager.library, {
       Rewinding: 2
     },
     state: 0,
+    didUnwind: false,
     StackSize: {{{ ASYNCIFY_STACK_SIZE }}},
     currData: null,
     // The return value passed to wakeUp() in
@@ -129,6 +130,7 @@ mergeInto(LibraryManager.library, {
         err('ASYNCIFY: stop unwind');
 #endif
         Asyncify.state = Asyncify.State.Normal;
+        Asyncify.didUnwind = true;
         runAndAbortIfError(Module['_asyncify_stop_unwind']);
         if (typeof Fibers !== 'undefined') {
           Fibers.trampoline();
@@ -176,9 +178,17 @@ mergeInto(LibraryManager.library, {
       return func;
     },
 
+    doRewind: function(ptr) {
+      var start = Asyncify.getDataRewindFunc(ptr);
+#if ASYNCIFY_DEBUG
+      err('ASYNCIFY: start:', start);
+#endif
+      Asyncify.didUnwind = false;
+      return start();
+    },
+
     handleSleep: function(startAsync) {
       if (ABORT) return;
-      noExitRuntime = true;
 #if ASYNCIFY_DEBUG
       err('ASYNCIFY: handleSleep ' + Asyncify.state);
 #endif
@@ -216,11 +226,7 @@ mergeInto(LibraryManager.library, {
           if (typeof Browser !== 'undefined' && Browser.mainLoop.func) {
             Browser.mainLoop.resume();
           }
-          var start = Asyncify.getDataRewindFunc(Asyncify.currData);
-#if ASYNCIFY_DEBUG
-          err('ASYNCIFY: start:', start);
-#endif
-          var asyncWasmReturnValue = start();
+          var asyncWasmReturnValue = Asyncify.doRewind(Asyncify.currData);
           if (!Asyncify.currData) {
             // All asynchronous execution has finished.
             // `asyncWasmReturnValue` now contains the final
@@ -414,11 +420,7 @@ mergeInto(LibraryManager.library, {
 #endif
         Asyncify.state = Asyncify.State.Rewinding;
         Module['_asyncify_start_rewind'](asyncifyData);
-        var start = Asyncify.getDataRewindFunc(asyncifyData);
-#if ASYNCIFY_DEBUG
-        err('ASYNCIFY/FIBER: start: ' + start);
-#endif
-        start();
+        Asyncify.doRewind(asyncifyData);
       }
     },
   },
@@ -453,7 +455,6 @@ mergeInto(LibraryManager.library, {
   emscripten_fiber_swap__deps: ["$Asyncify", "$Fibers"],
   emscripten_fiber_swap: function(oldFiber, newFiber) {
     if (ABORT) return;
-    noExitRuntime = true;
 #if ASYNCIFY_DEBUG
     err('ASYNCIFY/FIBER: swap', oldFiber, '->', newFiber, 'state:', Asyncify.state);
 #endif

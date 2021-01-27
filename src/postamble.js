@@ -195,7 +195,7 @@ function callMain(args) {
 #if ASYNCIFY
     // if we are saving the stack, then do not call exit, we are not
     // really exiting now, just unwinding the JS stack
-    if (!noExitRuntime) {
+    if (!Asyncify.didUnwind) {
 #endif // ASYNCIFY
       // if we're not running an evented main loop, it's time to exit
       exit(ret, /* implicit = */ true);
