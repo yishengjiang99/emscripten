@@ -101,7 +101,7 @@ deps_info = {
   'eglQueryString': ['malloc', 'free'],
   'emscripten_GetAlProcAddress': ['strcmp'],
   'emscripten_GetAlcProcAddress': ['strcmp'],
-  'emscripten_GetProcAddress': ['strstr'],
+  'emscripten_GetProcAddress': ['malloc', 'strstr'],
   'emscripten_SDL_SetEventHandler': ['malloc', 'free'],
   'emscripten_alcGetStringiSOFT': ['malloc', 'free'],
   'emscripten_async_wget2_data': ['malloc', 'free'],
@@ -227,4 +227,5 @@ deps_info = {
   'uuid_compare': ['memcmp', 'memcpy', 'memset'],
   'uuid_copy': ['memcpy'],
   'wgpuDeviceCreateBuffer': ['malloc', 'free'],
+  'emscripten_glGetString': ['malloc'],
 }
