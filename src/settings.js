@@ -1686,8 +1686,9 @@ var SPLIT_MODULE = 0;
 // native functions) prior to linking native code with wasm-ld.  This option
 // has three possible values:
 // 'auto': (default) inspect the object code passed to the linker (by running
-//         llvm-nm) all all inputs and use the map in deps_info.py to
-//         determines the set of additional dependencies.
+//         llvm-nm) on all inputs and include exactly the ones that
+//         are needed (by using the map in deps_info.py to
+//         determines the set of additional dependencies).
 // 'all' : Include the full set of possible reverse dependencies.
 // 'none': No reverse dependences will be added by emscriopten. Any reverse
 //         dependencies will be assumed to be explicitly add to
