@@ -1690,7 +1690,7 @@ var SPLIT_MODULE = 0;
 //         are needed (by using the map in deps_info.py to
 //         determines the set of additional dependencies).
 // 'all' : Include the full set of possible reverse dependencies.
-// 'none': No reverse dependences will be added by emscriopten. Any reverse
+// 'none': No reverse dependencies will be added by emscripten. Any reverse
 //         dependencies will be assumed to be explicitly add to
 //         EXPORTED_FUNCTIONS and deps_info.py will be completely ignored.
 // While 'auto' will produce a minimal set (so is good for code size), 'all'
